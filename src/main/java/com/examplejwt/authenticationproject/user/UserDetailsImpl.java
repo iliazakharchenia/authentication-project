@@ -15,6 +15,8 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+        System.out.println("authority is : "+this.authority);
+
         return List.of(this.authority);
     }
 

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class TokenService {
@@ -41,7 +42,7 @@ public class TokenService {
                 .expiresAt(now.plus(3, ChronoUnit.MINUTES))
                 .subject(authentication.getName())
                 .id(optionalUser.get().getId().toString())
-                .claim("scope", optionalUser.get().getAuthority())
+                .claim("roles", Set.of(optionalUser.get().getAuthority().toString()))
                 .build();
         return this.jwtEncoder.encode(JwtEncoderParameters.from(jwtClaimsSet)).getTokenValue();
     }
